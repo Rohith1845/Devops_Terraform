@@ -1,6 +1,0 @@
-.terraform/
-**/.terraform/
-*.exe
-*.sql
-terraform.tfstate*
-.gitingnore
