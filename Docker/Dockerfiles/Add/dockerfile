@@ -1,0 +1,6 @@
+FROM almalinux:9
+# capability one from internet
+ADD https://raw.githubusercontent.com/Rohith1845/Docker/refs/heads/main/Day51/VM-Containerization_History /tmp/notes.txt
+# capability two from local tar file
+ADD sample-1.tar /tmp/
+CMD [ "sleep","100" ]

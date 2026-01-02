@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ConfigMap-demo
+data:
+  Course: "DevOps_Kubernetes"
+  Training: "Mr.Rohith"
+  Duration: "120hrs"

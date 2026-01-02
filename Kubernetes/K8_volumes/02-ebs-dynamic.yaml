@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-dynamic
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeName: ebs-dynamic
+  resources:
+    requests:
+      storage: 4Gi #if use more than 50gb it may through an error means more than capacity
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels: 
+    purpose: ebs-dynamic
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: nginx-html
+      mountPath: /usr/share/nginx/html
+  # nodeSelector:
+  #   topology.kubernetes.io/zone: us-east-1b
+  volumes:
+  - name: nginx-html
+    PersistentVolumeClaim: ebs-dynamic
+    claimName: ebs-dynamic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ebs-dynamic
+spec:
+  type: Loadbalancer
+  selector:
+    purpose: ebs-dynamic
+  ports:
+    - protocol: TCP
+      port: 80  #service port
+      targetPort: 80 # container port
+      nodePort: 30007
+

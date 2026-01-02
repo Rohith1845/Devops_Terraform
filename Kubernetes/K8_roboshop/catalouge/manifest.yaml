@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalouge
+  namespace: roboshop
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalouge
+  namespace: roboshop
+  labels:
+    project: roboshop
+    component: catalouge
+    tier: backend
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      project: roboshop
+      component: catalouge
+      tier: backend
+
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: catalouge
+        tier: backend
+    spec:
+      containers:
+        - name: catalouge
+          image: krishnamsettyrohith/catalouge:v1
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: catalouge
+          ports:
+            - name: liveness-port
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: liveness-port
+            failureThreshold: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: liveness-port
+            failureThreshold: 1
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalouge
+  namespace: roboshop
+spec:
+  selector:
+    project: roboshop
+    component: catalouge
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080  #service port
+      targetPort: 8080 # container port
+

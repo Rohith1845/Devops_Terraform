@@ -1,0 +1,3 @@
+# first instruction in docker starts from FROM instruction
+FROM almalinux:9
+

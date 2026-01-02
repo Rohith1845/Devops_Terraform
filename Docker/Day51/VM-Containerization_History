@@ -1,0 +1,119 @@
+Containerization
+
+5 couples -> 10 members
+12 members
+20-25 membersjoint family
+individual house
+
+4 members -> small family
+mother and father -> 2kids
+a flat in apartment is enough
+
+individuals -> metros
+pg or a single room
+
+Individual vs Flat vs PG room
+=============================
+advantages
+==========
+completely ours, space is not shared
+privacy
+own design
+
+disadvantages
+=============
+maintaince on us
+	electric
+	plumbing
+	security agency
+costly
+time taking
+
+Flat
+====
+advantages
+==========
+less maintaince
+less cost
+time is also less
+
+disadvantages
+=============
+less privacy
+shared space
+not your design
+rules
+
+individual PG
+=============
+advantages
+==========
+less cost
+no maintaince
+less Time
+
+disadvantages
+=============
+no privacy
+everything is shared
+
+HTML CSS JavaScript -> Frontend
+Java or .net -> Backend
+
+J2EE -> Java enterprise edition
+Servlets and jsp(java server pages) for viewing ->spring also depends on this
+a single file -> frontend+backend
+roboshop.war + dependencies(libraries) jar files
+roboshop.ear (enterprise archeive)
+150-200MB
+
+A simple change in anything should again follow the release process
+
+clinet side BA -> Our BA
+BA, Delivery Manager, Architects, Leads -> meeting
+1 month
+Dev SIT UAT PROD
+
+9PM -> 6AM
+Bridge -> L1 support, L2 support, monitoring, service desk,
+clinet, managers
+
+seam frameworks(Jboss)
+struts
+spring (Evolution and Revolution)
+
+weblogic, websoher, Jboss, Wildfly
+
+Monolithic
+==========
+Frontend -> Backend
+API
+.war
+Apache tomcat, Jboss Web Server
+100-150mb
+
+Microservices
+=============
+Catalogue, cart, shipping
+API
+every component in diff programming langauge
+MB's
+
+Hypervisor -> converts physical space to logical ram 64gb we have it can converts 32 2gb parts
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo
+dockerinstall-link
+
+sudo dnf install docker-ce docker-ce-cli containered.io
+docker-buildx-plugin docker-compose-plugin -y
+
+a docker group is created
+only root user and users inside docker group will have access to docker cli
+
+sudo usermod -ag docker ec2-user
+
+exit and login again
+
+docker ps -> all running containers
+

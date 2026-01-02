@@ -1,0 +1,4 @@
+# first instruction to define base Os
+FROM almalinux:9
+# instruction to configure like installing package/ creating user.,
+RUN dnf install nginx -y

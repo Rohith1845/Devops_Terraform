@@ -1,0 +1,76 @@
+- name: functions
+  hosts: local
+  connection: local
+  vars:
+    technologies: DevOps, ansible, linux, shell
+  # dictionary == map
+    tags:
+      application: Rohith
+      domain: aws
+    listtags:
+    - key: application
+      value: Rohith
+    - key: enviroment
+      value: rohith
+    name: rohith
+    gmail: KRISHNAMSETTYROHITH@GMAIL.COM
+    Ip: "192.168.0.1"
+  tasks:
+  - name: print functions
+    ansible.builtin.debug:
+      msg: "name is {{ name | default('Rohith') }}"
+  
+  - name: spilt
+    ansible.builtin.debug:
+      msg: "List is {{ technologies | split(',') }}"
+
+  - name: convert map to List
+    ansible.builtin.debug:
+      msg: "Map list is {{ tags |  dict2items }}"
+  
+  - name: convert list to map
+    ansible.builtin.debug:
+      msg: "List to map is {{ listtags | items2dict }}"
+  - name: read yaml and take it into variable
+    ansible.builtin.set_fact:
+      rohith_yaml: "{{ lookup('file', '03-multi-play.yaml') | from_yaml }}"
+
+  - name: convert yaml to json
+    ansible.builtin.debug:
+      msg: " Json {{ rohith_yaml | to_json }}"
+
+  - name: save json to file
+    ansible.builtin.copy:
+      dest: ./rohith-json.data
+      content: "{{ rohith_yaml | to_nice_json }}"
+  
+  - name: convert to upper case
+    ansible.builtin.debug:
+      msg: "upper case is {{ name | upper }}"
+
+  - name: convert upper to lower case
+    ansible.builtin.debug:
+      msg: "lower case is {{ gmail | lower }}"
+  
+  - name: print ip address
+    ansible.builtin.debug:
+      msg: "Ip address is {{ Ip | ansible.utils.ipv4 }}"
+
+  - name:  grep for root
+    #ansible.builtin.command: cat /etc/passwd | grep root  -will get error
+    ansible.builtin.shell: cat /etc/passwd | grep root
+    register: command_output
+
+  - name: print command_output
+    ansible.builtin.debug:
+      msg: "{{ command_output }}"
+  
+  - name: redirect command_output
+    #ansible.builtin.command: ls -ltr > /tmp/output.txt - will get error
+    ansible.builtin.shell: ls -ltr > /tmp/output.txt
+    register: redirect_output
+
+  - name: print redirect outputs
+    ansible.builtin.debug:
+      msg: "{{ redirect_output }}"
+  

@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ebs-static
+spec:
+  accessModes:
+  - ReadWriteOnce
+  PersistentVolumeReclaimPolicy: Retain # retain means don't delete data, recycle means delete data not delete disk
+  capacity:
+    storage: 15Gi
+  csi:
+    driver: ebs.csi.aws.com
+    fsType: ext4
+    volumeHandle: ourVolumeName
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-static
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeName: ebs-static
+  resources:
+    requests:
+      storage: 15Gi #if use more than 50gb it may through an error means more than capacity
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels: 
+    purpose: ebs-static
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: nginx-html
+      mountPath: /usr/share/nginx/html
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1b
+  volumes:
+  - name: nginx-html
+    PersistentVolumeClaim: ebs-static
+    claimName: ebs-static
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ebs-static
+spec:
+  type: Loadbalancer
+  selector:
+    purpose: ebs-static
+  ports:
+    - protocol: TCP
+      port: 80  #service port
+      targetPort: 80 # container port
+      nodePort: 30007
+
