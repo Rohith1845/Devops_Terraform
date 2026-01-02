@@ -1,0 +1,4 @@
+*.sql
+.terraform/
+**/.terraform/
+*.exe
