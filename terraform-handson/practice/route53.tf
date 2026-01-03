@@ -1,3 +1,4 @@
+# Using count loop
 # resource "aws_route53_record" "roboshop" {
 #     count = 4
 #     count = length(var.instance_name)
@@ -9,6 +10,7 @@
 #     allow_overwrite = true
 # }
 
+# Using for each loop
 # resource "aws_route53_record" "roboshop" {
 #     for_each = aws_instance.terraform
 #     zone_id = "${var.zone}"

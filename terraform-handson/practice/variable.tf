@@ -51,3 +51,8 @@ variable "domain_name" {
 variable "zone" {
   default = "Z08295323BHRO8KXCM7P0"
 }
+
+variable "ingress_ports" {
+  default = ["22","8080","3306"]
+  
+}
